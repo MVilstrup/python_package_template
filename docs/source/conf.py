@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'pypackage'
+project = 'pypackage_template'
 copyright = '2021, Mikkel Vilstrup'
 author = 'Mikkel Vilstrup'
 

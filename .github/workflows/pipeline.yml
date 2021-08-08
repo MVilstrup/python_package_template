@@ -14,32 +14,32 @@ jobs: # jobs. We will have two jobs (test and publish) with multiple steps.
     strategy:
       matrix:
         python-version: [3.6, 3.7, 3.8]
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Run image # install poetry
-        uses: abatilo/actions-poetry@v2.0.0
-        with:
-          poetry-version: 1.0.10
-      - name: Install dependencies # install all dependencies
-        run: poetry install
-      - name: Pylint # Run pylint static analysis
-        run: |
-          poetry run pylint tsgen
-      - name: mypy  # Run mypy static analysis
-        run: |
-          poetry run mypy -p pypackage
-      - name: Pytest # Run pytest
-        run: |
-          poetry run coverage run -m --source=pypackage pytest tests
-          poetry run coverage report
-      - name: Coveralls # Send coverage metrics to coveralls.io
-        run: poetry run coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+pypackage_template:
+  steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Run image # install poetry
+      uses: abatilo/actions-poetry@v2.0.0
+      with:
+        poetry-version: 1.0.10
+    - name: Install dependencies # install all dependencies
+      run: poetry install
+    - name: Pylint # Run pylint static analysis
+      run: |
+        poetry run pylint pypackage_template
+    - name: mypy  # Run mypy static analysis
+      run: |
+        poetry run mypy -p pypackage_template
+    - name: Pytest # Run pytest
+      run: |
+        poetry run coverage run -m --source=pypackage_template pytest tests
+        poetry run coverage report
+    - name: Coveralls # Send coverage metrics to coveralls.io
+      run: poetry run coveralls
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
   publish:
     # Our publish job will only run on release creation events,
@@ -56,7 +56,7 @@ jobs: # jobs. We will have two jobs (test and publish) with multiple steps.
         uses: abatilo/actions-poetry@v2.0.0
         with:
           poetry-version: 1.0.10
-      - name: Build and publish # publish tsgen to PyPI
+      - name: Build and publish # publish pypackage_template to PyPI
         env:
           PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
           PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}

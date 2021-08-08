@@ -1,1 +1,1 @@
-poetry run mypy PYPACKAGE
+poetry run mypy pypackage_template

@@ -11,7 +11,7 @@ repos:
       - id: pylint
         name: pylint
         entry: pylint
-        exclude: ^(tests/|docs/|scripts/)
+        exclude: ^(tests/|docs/|scripts/|.github/)
         language: system
         types: [python]
   - repo: https://github.com/pre-commit/mirrors-mypy
