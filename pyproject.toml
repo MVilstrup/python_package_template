@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "PYPACKAGE"
+version = "0.1.0"
+description = ""
+authors = ["Mikkel Vilstrup <mikkel@vilstrup.dk>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+coverage = "^5.5"
+mypy = "^0.910"
+pre-commit = "^2.14.0"
+pylint = "^2.9.6"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
